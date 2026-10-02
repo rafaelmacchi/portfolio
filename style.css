@@ -365,3 +365,65 @@ footer {
   text-align: center;
   margin-top: 2rem;
 }
+
+/* Ensure background elements stay contained within section bounds */
+.section {
+  position: relative;
+  overflow: visible;   /* was: hidden */
+}
+
+/* Background image overlay container */
+.section-bg-images {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* Allows clicks to pass through to cards and buttons */
+  z-index: 0;
+}
+
+/* Make sure main section content renders on top of background images */
+.section-title, 
+.about-grid, 
+.timeline, 
+.skills-grid, 
+.card-grid, 
+.contact-box, 
+.toggle-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Base styling for blended background images */
+.bg-img {
+  position: absolute;
+  width: auto;                    /* box now matches the picture */
+  height: auto;
+  max-width: 500px;
+  max-height: 500px;
+  /* removed object-fit: contain */
+  border-radius: 16px;
+  opacity: 0;
+  mix-blend-mode: screen;
+  filter: grayscale(0%) blur(0px);
+  transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Positioning left & right image accents */
+.bg-img-left {
+  left: -110px;
+  top: 50%;
+  transform: translateY(-30%) scale(0.85) rotate(-6deg);
+}
+
+.bg-img-right {
+  right: -110px;
+  top: 25%;
+  transform: translateY(-30%) scale(0.85) rotate(6deg);
+}
+
+
+
+/* Active state triggered when scrolling near the middle of a section */
+.section.bg-active .bg-img {
+  opacity: 0.50; /* Subtle ambient transparency */
+  transform: translateY(-50%) scale(1) rotate(0deg);
+}

@@ -62,3 +62,26 @@ document.addEventListener('keydown', (e) => {
     e.preventDefault();
   }
 });
+
+// Ambient Background Image Scroll Observer
+const bgSections = document.querySelectorAll('.section');
+
+const bgObserverOptions = {
+  root: null,
+  threshold: 0.35 // Triggers when ~35-40% of the section is visible in the viewport
+};
+
+const bgObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('bg-active');
+    } else {
+      // Fades the images out when scrolling away from the section
+      entry.target.classList.remove('bg-active');
+    }
+  });
+}, bgObserverOptions);
+
+bgSections.forEach(section => {
+  bgObserver.observe(section);
+});
